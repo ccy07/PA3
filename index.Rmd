@@ -1,0 +1,44 @@
+---
+title: "Programming assignment 3"
+author: "Chaoyi Chen"
+date: "Last update: `r Sys.Date()`"
+output:
+  github_document:
+  highlight: kate
+  keep_md: yes
+  theme: united
+---
+
+```{r, warnings=F, message=F}
+library(tidyverse)
+library(languageR)
+```
+**EDA_step 1**: Load the dataset of your choice and get information about its structure.
+```{r, warnings=F, message=F}
+beginningReaders %>%
+  str()  # Load the dataset of your choice and get information about its structure 
+```
+**EDA_step 2**: Tidy the dataset (every variable gets a column, every observation occupies a single row), if necessary.
+```{r, warnings=F, message=F}
+beginningReaders %>% 
+pivot_longer(.,cols = PC1:PC4, 
+             names_to = "PC", values_to = "PC_value") # Tidy the dataset (every variable gets a column, every observation occupies a single row), if necessary.
+```
+**EDA_step 3**: Calculate descriptive statistics of your choice.
+```{r, warnings=F, message=F}
+beginningReaders %>%
+summary()# Calculate descriptive statistics of your choice.
+```
+**EDA_step 4 and 5**: Select two continuous variables and fit a model to the data (bivariate regression) and generate a plot that includes a regression line.
+
+```{r, warnings=F, message=F}
+beginningReaders %>%
+  ggplot(., aes(x = LogFrequency, y= ProportionOfErrors)) + 
+  geom_point() + 
+  geom_smooth(method = lm) + 
+  annotate(geom = "text", x= 6, y = 0.4, label = paste("r = ", cor(x = beginningReaders$LogFrequency, y = beginningReaders$ProportionOfErrors))) # Select two continuous variables and fit a model to the data (bivariate regression) and generate a plot that includes a regression line.
+```
+
+**EDA_step 6**: Write up some general observations (1-2 paragraphs max)
+
+The plot in question describes the correlation between log-transformed frequency in Vermeer’s frequency dictionary of Dutch children’s texts and the proportion of error responses for the word. The slope value of the regression line is negative, which indicates that as the frequency increases, the proportion of error responses decreases. The fitting value of the proposed model to the data is around 0.5.

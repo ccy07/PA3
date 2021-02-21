@@ -3,7 +3,7 @@ title: "Programming assignment 3"
 author: "Chaoyi Chen"
 date: "Last update: `r Sys.Date()`"
 output:
-  github_document:
+  html_document:
   highlight: kate
   keep_md: yes
   theme: united
